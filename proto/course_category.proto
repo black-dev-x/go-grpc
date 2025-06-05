@@ -1,0 +1,26 @@
+syntax = "proto3";
+package pb;
+option go_package = "internal/pb";
+
+import "google/protobuf/empty.proto";
+
+message Category {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message CategoryResponse {
+  Category category = 1;
+}
+
+message CreateCategoryRequest {
+  string name = 1;
+  string description = 2;
+}
+
+service CategoryService {
+  rpc CreateCategory (CreateCategoryRequest) returns (CategoryResponse);
+  rpc GetCategoryById (Category) returns (CategoryResponse);
+  rpc GetAllCategories (google.protobuf.Empty) returns (stream CategoryResponse);
+}
