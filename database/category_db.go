@@ -24,6 +24,18 @@ func (c *CategoryDB) Create(name string, description string) (*model.Category, e
 	return &model.Category{ID: id, Name: name, Description: description}, error
 }
 
+func (c *CategoryDB) GetCategoryById(id string) (*model.Category, error) {
+	row := c.db.QueryRow("SELECT id, name, description FROM categories WHERE id = $1", id)
+	var category model.Category
+	if err := row.Scan(&category.ID, &category.Name, &category.Description); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil // No category found
+		}
+		return nil, err // Other error
+	}
+	return &category, nil
+}
+
 func (c *CategoryDB) FindAll() ([]*model.Category, error) {
 	rows, err := c.db.Query("Select id, name, description FROM categories")
 	if err != nil {
