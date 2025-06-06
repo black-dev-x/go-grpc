@@ -5,6 +5,7 @@ go 1.24.0
 require (
 	github.com/black-dev-x/go-graphql v0.0.0-20250605210304-e377c47a8c6e
 	github.com/google/uuid v1.6.0
+	github.com/mattn/go-sqlite3 v1.14.28
 	google.golang.org/grpc v1.73.0
 	google.golang.org/protobuf v1.36.6
 )
